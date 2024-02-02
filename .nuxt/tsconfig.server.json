@@ -50,11 +50,22 @@
       ],
       "public/*": [
         "../public/*"
+      ],
+      "#icon-collections": [
+        "./icon-collections"
+      ],
+      "pinia": [
+        "../node_modules/pinia/dist/pinia"
       ]
     }
   },
   "include": [
     "./types/nitro-nuxt.d.ts",
+    "../node_modules/nuxt-icon/runtime/server",
+    "../node_modules/nuxt-lodash/runtime/server",
+    "../node_modules/@pinia-plugin-persistedstate/nuxt/runtime/server",
+    "../node_modules/@pinia/nuxt/runtime/server",
+    "../node_modules/@nuxtjs/tailwindcss/runtime/server",
     "../node_modules/@nuxt/devtools/runtime/server",
     "../node_modules/@nuxt/telemetry/runtime/server",
     "./types/nitro.d.ts",
