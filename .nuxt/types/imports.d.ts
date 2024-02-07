@@ -420,6 +420,7 @@ declare global {
   const useUpdateWith: typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['updateWith']
   const useUpperCase: typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['upperCase']
   const useUpperFirst: typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['upperFirst']
+  const useUserStore: typeof import('../../stores/user')['useUserStore']
   const useValues: typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['values']
   const useValuesIn: typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['valuesIn']
   const useWithout: typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['without']
@@ -872,6 +873,7 @@ declare module 'vue' {
     readonly useUpdateWith: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['updateWith']>
     readonly useUpperCase: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['upperCase']>
     readonly useUpperFirst: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['upperFirst']>
+    readonly useUserStore: UnwrapRef<typeof import('../../stores/user')['useUserStore']>
     readonly useValues: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['values']>
     readonly useValuesIn: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['valuesIn']>
     readonly useWithout: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['without']>
@@ -1317,6 +1319,7 @@ declare module '@vue/runtime-core' {
     readonly useUpdateWith: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['updateWith']>
     readonly useUpperCase: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['upperCase']>
     readonly useUpperFirst: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['upperFirst']>
+    readonly useUserStore: UnwrapRef<typeof import('../../stores/user')['useUserStore']>
     readonly useValues: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['values']>
     readonly useValuesIn: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['valuesIn']>
     readonly useWithout: UnwrapRef<typeof import('../../node_modules/nuxt-lodash/dist/runtime/lodash')['without']>

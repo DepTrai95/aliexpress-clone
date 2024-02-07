@@ -1,4 +1,3 @@
-import type { Loading } from '#build/components';
 <template>
   <div id="FooterMain" class="w-full bg-[#e8e8e8] mt-10 mb-2">
     <div class="max-w-[1200px] mx-auto px-4">
