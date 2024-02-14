@@ -169,7 +169,7 @@
     </div>
     <Loading v-if="userStore.isLoading"></Loading>
     
-    <div class="lg:pt-[150px] md:pt-[130px] pt-[80px]"></div>
+    <div class="lg:pt-[100px] md:pt-[80px] pt-[50px]"></div>
     <slot></slot>
     
     <Footer v-if="!userStore.isLoading"></Footer>
