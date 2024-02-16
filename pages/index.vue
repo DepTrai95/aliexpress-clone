@@ -27,6 +27,5 @@ const products = [
    { id: 8, title: 'Title 8', description: 'This is a description', url: 'https://picsum.photos/id/18/800/800', price: 9994 },
    { id: 9, title: 'Title 9', description: 'This is a description', url: 'https://picsum.photos/id/19/800/800', price: 9995 },
    { id: 10, title: 'Title 10', description: 'This is a description', url: 'https://picsum.photos/id/10/800/800', price: 9999 },
-
 ]
 </script>
