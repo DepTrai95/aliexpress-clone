@@ -6,6 +6,7 @@ import { parentPort, threadId } from 'node:worker_threads';
 import { defineEventHandler, handleCacheHeaders, splitCookiesString, isEvent, createEvent, getRequestHeader, eventHandler, setHeaders, sendRedirect, proxyRequest, setResponseHeader, send, getResponseStatus, setResponseStatus, setResponseHeaders, getRequestHeaders, createApp, createRouter as createRouter$1, toNodeListener, fetchWithEvent, lazyEventHandler, getQuery as getQuery$1, createError, getResponseStatusText } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/h3/dist/index.mjs';
 import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import { stringify, uneval } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/devalue/index.js';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/ufo/dist/index.mjs';
 import { renderToString } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/vue/server-renderer/index.mjs';
 import { renderSSRHead } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/@unhead/ssr/dist/index.mjs';
 import { createFetch as createFetch$1, Headers as Headers$1 } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/ofetch/dist/node.mjs';
@@ -16,7 +17,6 @@ import { snakeCase } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modu
 import { klona } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/klona/dist/index.mjs';
 import defu, { defuFn } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/defu/dist/defu.mjs';
 import { hash } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/ohash/dist/index.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/ufo/dist/index.mjs';
 import { createStorage, prefixStorage } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/unstorage/dist/index.mjs';
 import unstorage_47drivers_47fs from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/unstorage/drivers/fs.mjs';
 import { toRouteMatcher, createRouter } from 'file:///Users/nguyen/Sites/aliexpress-clone/node_modules/radix3/dist/index.mjs';
@@ -1040,6 +1040,13 @@ const renderer = defineRenderHandler(async (event) => {
     /* NuxtApp */
     payload: ssrError ? { error: ssrError } : {},
     _payloadReducers: {},
+    modules: /* @__PURE__ */ new Set(),
+    set _registeredComponents(value) {
+      this.modules = value;
+    },
+    get _registeredComponents() {
+      return this.modules;
+    },
     islandContext
   };
   const renderer = ssrContext.noSSR ? await getSPARenderer() : await getSSRRenderer();
@@ -1070,6 +1077,9 @@ const renderer = defineRenderHandler(async (event) => {
     const link = [];
     for (const style in styles) {
       const resource = styles[style];
+      if ("inline" in getQuery(resource.file)) {
+        continue;
+      }
       {
         link.push({ rel: "stylesheet", href: renderer.rendererContext.buildAssetsURL(resource.file) });
       }
