@@ -6,7 +6,7 @@
           <div class="bg-white rounded-lg p-4">
             <div class="text-xl font-semibold mb-2">Shipping Address</div>
 
-            <div v-if="true">
+            <div v-if="currentAddress && currentAddress.data">
               <NuxtLink
                 to="/address"
                 class="flex items-center pb-2 text-blue-500 hover:text-red-400"
@@ -20,33 +20,27 @@
                 <ul class="text-xs">
                   <li class="flex items-center gap-2">
                     <div>Contact name:</div>
-                    <!-- <div class="font-bold">{{ currentAddress.data.name }}</div> -->
-                    <div class="font-bold">TEST</div>
+                    <div class="font-bold">{{ currentAddress.data.name }}</div>
                   </li>
                   <li class="flex items-center gap-2">
                     <div>Address:</div>
                     <div class="font-bold">
-                      <!-- {{ currentAddress.data.address }} -->
-                      TEST
+                      {{ currentAddress.data.address }}
                     </div>
                   </li>
                   <li class="flex items-center gap-2">
                     <div>Zip Code:</div>
                     <div class="font-bold">
-                      <!-- {{ currentAddress.data.zipcode }} -->
-                      TEST
+                      {{ currentAddress.data.zipcode }}
                     </div>
                   </li>
                   <li class="flex items-center gap-2">
                     <div>City:</div>
-                    <!-- <div class="font-bold">{{ currentAddress.data.city }}</div> -->
-                    <div class="font-bold">TEST</div>
-                  </li>
+                    <div class="font-bold">{{ currentAddress.data.city }}</div>                  </li>
                   <li class="flex items-center gap-2">
                     <div>Country:</div>
                     <div class="font-bold">
-                      <!-- {{ currentAddress.data.country }} -->
-                      TEST
+                      {{ currentAddress.data.country }}
                     </div>
                   </li>
                 </ul>
@@ -129,6 +123,7 @@
 import MainLayout from '~/layouts/MainLayout.vue';
 import { useUserStore } from '~/stores/user';
 const userStore = useUserStore();
+const user = useSupabaseUser();
 const route = useRoute();
 
 let stripe = null
@@ -140,8 +135,23 @@ let clientSecret = null
 let currentAddress = ref(null)
 let isProcessing = ref(false)
 
+onBeforeMount(async () => {
+  if (userStore.checkout.length < 1) {
+    return navigateTo('/shoppingcart')
+  }
 
-let selectedArray = ref([]);
+  total.value = 0.00
+  if (user.value) {
+    currentAddress.value = await useFetch(`/api/prisma/get-address-by-user/${user.value.id}`)
+    setTimeout(() => userStore.isLoading = false, 200)
+  }
+})
+
+watchEffect(() => {
+  if (route.fullPath == '/checkout' && !user.value) {
+    return navigateTo('/auth')
+  }
+})
 
 onMounted(() => {
   isProcessing.value = true;
@@ -173,22 +183,7 @@ const createOrder = async (stripeId) => {
 const showError = async (errorMsg) => {
 
 };
-const products = [
-  {
-    id: 1,
-    title: 'Title 1',
-    description: 'This is a description',
-    url: 'https://picsum.photos/id/11/800/800',
-    price: 9945,
-  },
-  {
-    id: 2,
-    title: 'Title 2',
-    description: 'This is a description',
-    url: 'https://picsum.photos/id/12/800/800',
-    price: 20323,
-  },
-];
+
 </script>
 
 <style lang="scss" scoped></style>

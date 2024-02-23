@@ -22,9 +22,6 @@ const userStore = useUserStore();
 
 const route = useRoute();
 
-// const client = useSupabaseClient();
-// const user = useSupabaseUser();
-
 let windowWidth = ref(process.client ? window.innerHeight : '');
 
 onMounted(() => {

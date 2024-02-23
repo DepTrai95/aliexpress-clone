@@ -117,21 +117,21 @@
             </div>
 
             <div class="absolute bg-white max-w-[700px] h-auto w-full">
-              <div v-if="false" class="p-1">
+              <div v-if="items && items.data" v-for="item in items.data" class="p-1">
                 <NuxtLink
-                  to="/items/1"
+                  :to="`/item/${item.id}`"
                   class="flex items-center justify-between w-full cursor-pointer hover:bg-gray-100"
                 >
                   <div class="flex items-center">
                     <img
                       class="rounded-md"
                       width="40"
-                      src="https://picsum.photos/id/82/300/320"
+                      :src="item.url"
                       alt=""
                     />
-                    <div class="truncate ml-2">TESTING</div>
+                    <div class="truncate ml-2">{{ item.title }}</div>
                   </div>
-                  <div class="truncate">98.99 €</div>
+                  <div class="truncate">{{ item.price / 100 }}</div>
                 </NuxtLink>
               </div>
             </div>
@@ -147,7 +147,7 @@
             <span
               class="absolute flex items-center justify-center -right-[3px] top-0 bg-[#ff4646] h-[17px] min-w-[17px] text-xs text-white px-0.5 rounded-full"
             >
-              0
+              {{ userStore.cart.length }}
             </span>
             <div class="min-w-[40px]">
               <Icon
@@ -176,11 +176,33 @@
 </template>
 
 <script setup>
-import { useUserStore } from '../stores/user';
-const userStore = useUserStore();
+import { useUserStore } from '~/stores/user';
+const userStore = useUserStore()
 
-let isAccountMenu = ref(false);
-let isCartHover = ref(false);
-let isSearching = ref(false);
-let searchItem = ref('');
+const client = useSupabaseClient()
+const user = useSupabaseUser()
+
+let isAccountMenu = ref(false)
+let isCartHover = ref(false)
+let isSearching = ref(false)
+let searchItem = ref('')
+let items = ref(null)
+
+const searchByName = useDebounce(async () => {
+  isSearching.value = true
+  items.value = await useFetch(`/api/prisma/search-by-name/${searchItem.value}`)
+  isSearching.value = false
+}, 100)
+
+watch(() => searchItem.value, async () => {
+  if (!searchItem.value) {
+    setTimeout(() => {
+      items.value = ''
+      isSearching.value = false
+      return
+    }, 500)
+  }
+  searchByName()
+})
+
 </script>

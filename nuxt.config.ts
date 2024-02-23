@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     "nuxt-lodash",
     "@pinia-plugin-persistedstate/nuxt",
     "@pinia/nuxt",
-    //"@nuxtjs/supabase",
+    "@nuxtjs/supabase",
     "@nuxtjs/tailwindcss",
   ],
   runtimeConfig: {
@@ -15,11 +15,14 @@ export default defineNuxtConfig({
       stripePk: process.env.STRIPE_PK_KEY
     }
   },
+  supabase: {
+    redirect: false,
+  },
   app: {
     head: {
       script: [
         { src: 'https://js.stripe.com/v3', defer: true }
       ]
     }
-  }
+  },
 }) 
