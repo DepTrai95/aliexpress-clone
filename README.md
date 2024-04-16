@@ -2,7 +2,7 @@
  AliExpress Clone
 
 Created mainly as an exercise and almost everything is copied from [John Weeks](https://github.com/John-Weeks-Dev/aliexpress-clone). 
-I didn't learn to build a Nuxt project from scratch per se, but I did kinda learn the structure and concept of NuxtJS, Tailwindcss, Prisma and how Supabase + OAuth works in this kind of application. 
+I didn't learn to build a Nuxt project from scratch per se, but coming from Vue.js I did learn the structure and concept of NuxtJS, Tailwindcss, Prisma and how Supabase + OAuth works in these kind of applications. 
 
 To run this project:
 
